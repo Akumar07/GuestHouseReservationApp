@@ -1,0 +1,123 @@
+﻿@model IEnumerable<GuestHouseApp.Models.MasterTable>
+@{
+    ViewBag.Title = "BookingHistory";
+}
+@if (TempData["message"] != null)
+{
+    <br />
+    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        <strong class="text-center">@TempData["message"]</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<div class="col-12">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-center">Upcoming or Ongoing Guest Details<strong></strong></h3>
+        </div>
+        <div class="card-body table-responsive">
+            @if (Model.Where(x => x.DateOfDep >= DateTime.Now.AddDays(-1)).Count() > 0)
+            {
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Sl. No.</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Govt Issued-Id</th>
+                        <th>Date of Arrival</th>
+                        <th>Date of Departure</th>
+                        <th>Country</th>
+                        <th>Number of Persons</th>
+                        <th>Special Requests</th>
+                        <th>Payment Method</th>
+                    </tr>
+                    @{ int i = 0;}
+                    @foreach (var item in Model.Where(x => x.DateOfDep >= DateTime.Now.AddDays(-1)))
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.Email</td>
+                            <td>
+                                @item.GovtIdCard.Description
+                                (@item.GovtIdNo)
+                            </td>
+                            <td>@item.DateOfArr.ToString("dd-MM-yyyy")</td>
+                            <td>@item.DateOfDep.ToString("dd-MM-yyyy")</td>
+                            <td>@item.Country.Description</td>
+                            <td>@item.NumberOfPerson</td>
+                            <td>@item.Remarks</td>
+                            <td>@item.PaymentMethod.Description</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <h3 class="text-center">No Upcoming Guest</h3>
+                </div>
+            }
+
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h3 class="text-center">Booking History <strong></strong></h3>
+        </div>
+        <div class="card-body table-responsive">
+            @if (Model.Where(x => x.DateOfDep < DateTime.Now.AddDays(-1)).Count() > 0)
+            {
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Sl. No.</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Govt Issued-Id</th>
+                        <th>Date of Arrival</th>
+                        <th>Date of Departure</th>
+                        <th>Country</th>
+                        <th>Number of Persons</th>
+                        <th>Special Requests</th>
+                        <th>Payment Method</th>
+                    </tr>
+                    @{ int i = 0;}
+                    @foreach (var item in Model.Where(x => x.DateOfDep < DateTime.Now.AddDays(-1)))
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.Email</td>
+                            <td>
+                                @item.GovtIdCard.Description
+                                (@item.GovtIdNo)
+                            </td>
+                            <td>@item.DateOfArr.ToString("dd-MM-yyyy")</td>
+                            <td>@item.DateOfDep.ToString("dd-MM-yyyy")</td>
+                            <td>@item.Country.Description</td>
+                            <td>@item.NumberOfPerson</td>
+                            <td>@item.Remarks</td>
+                            <td>@item.PaymentMethod.Description</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <h3 class="text-center">No Booking History</h3>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

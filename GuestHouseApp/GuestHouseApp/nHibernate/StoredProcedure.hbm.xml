@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping assembly="GuestHouseApp" namespace="GuestHouseApp.Models" xmlns="urn:nhibernate-mapping-2.2">
+  <!--Query to load list for Proceeding Index Page-->
+  <sql-query name="spLoadProceedingDetails">
+    exec dbo.spLoadProceedingDetails :Id
+  </sql-query>
+
+
+  <sql-query name="spLoadCourtWiseCase">
+    exec dbo.spLoadCourtWiseCase
+  </sql-query>
+</hibernate-mapping>

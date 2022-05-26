@@ -1,0 +1,206 @@
+﻿@model GuestHouseApp.ViewModels.ReservationVM
+
+@{
+    ViewBag.Title = "Room Booking";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    if (TempData["message"] != null)
+    {
+        <br />
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+            <strong class="text-center">@TempData["message"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <br />
+    <div class="col-8 offset-2">
+        <div class="card border-warning">
+            <div class="card-header border-warning bg-warning">
+                <h3 class="text-center">Book Room</h3>
+            </div>
+            <div class="card-body border-warning">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-6"><strong>First Name</strong></div>
+                    <div class="col-6">
+                        @Html.EditorFor(model => model.MasterTable.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "fname", onchange = "ValueChange(this);" } })
+                        @Html.ValidationMessageFor(model => model.MasterTable.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Last Name</strong></div>
+                    <div class="col-6">
+                        @Html.EditorFor(model => model.MasterTable.LastName, new { htmlAttributes = new { @class = "form-control", @id = "lname", onchange = "ValueChange(this);" } })
+                        @Html.ValidationMessageFor(model => model.MasterTable.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Email Address</strong></div>
+                    <div class="col-6">
+                        @Html.EditorFor(model => model.MasterTable.Email, new { htmlAttributes = new { @class = "form-control", @id = "email", onchange = "ValueChange(this);" } })
+                        @Html.ValidationMessageFor(model => model.MasterTable.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Govt. Issued-ID</strong></div>
+                    <div class="col-3">
+                        @Html.DropDownListFor(model => model.MasterTable.GovtIdCard.Id, new SelectList(Model.GovtIdCardList, "Id", "Description"), "---Select ID Type---", new { @class = "form-control", @id = "idcardtype", onchange = "ValueChange(this);" })
+                        @Html.ValidationMessageFor(model => model.MasterTable.GovtIdCard.Id, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-3">
+                        @Html.EditorFor(model => model.MasterTable.GovtIdNo, new { htmlAttributes = new { @class = "form-control", @id = "idcardno", onchange = "ValueChange(this);" } })
+                        @Html.ValidationMessageFor(model => model.MasterTable.GovtIdNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Date of Arrival</strong></div>
+                    <div class="col-6">
+                        @Html.EditorFor(model => model.MasterTable.DateOfArr, new { htmlAttributes = new { @class = "form-control", @id = "arrdate", onchange = "ValueChange(this);" } })
+                        @Html.ValidationMessageFor(model => model.MasterTable.DateOfArr, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Date of Departure</strong></div>
+                    <div class="col-6">
+                        @Html.EditorFor(model => model.MasterTable.DateOfDep, new { htmlAttributes = new { @class = "form-control", @id = "depdate", onchange = "ValueChange(this);" } })
+                        @Html.ValidationMessageFor(model => model.MasterTable.DateOfDep, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Country</strong></div>
+                    <div class="col-6">
+                        @Html.DropDownListFor(model => model.MasterTable.Country.Id, new SelectList(Model.CountryList, "Id", "Description"), "---Select Country---", new { @class = "form-control", @id = "country", onchange = "ValueChange(this);" })
+                        @Html.ValidationMessageFor(model => model.MasterTable.Country.Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Number of Persons</strong></div>
+                    <div class="col-6">
+                        @Html.EditorFor(model => model.MasterTable.NumberOfPerson, new { htmlAttributes = new { @class = "form-control", @id = "ttlperson", onchange = "ValueChange(this);" } })
+                        @Html.ValidationMessageFor(model => model.MasterTable.NumberOfPerson, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Any Special Request</strong></div>
+                    <div class="col-6">
+                        @Html.TextAreaFor(model => model.MasterTable.Remarks, 5, 50, new { @class = "form-control", @id = "remarks", onchange = "ValueChange(this);" })
+                        @Html.ValidationMessageFor(model => model.MasterTable.Remarks, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6"><strong>Payment Method</strong></div>
+                    <div class="col-6">
+                        @foreach (var item in Model.PaymentMethodList)
+                        {
+                            <div class="form-check form-check-inline" id="radio">
+                                <input class="form-check-input" type="radio" name="MasterTable.PaymentMethod.Id" id=@("radio"+item.Id) value="@item.Id" onchange="ValueChange(this);">
+                                <label class="form-check-label" for=@("radio"+item.Id)>@item.Description</label>
+                            </div>
+                        }
+                        @Html.ValidationMessageFor(model => model.MasterTable.PaymentMethod.Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer border-warning text-center">
+                <input onclick="return IsValid();" type="submit" class="btn btn-info" value="Submit" />
+                <a class="btn btn-danger" href="@Url.Action("Index","Home")">Cancel</a>
+                <input type="button" class="btn btn-warning" value="Reset" onclick="reset();" />
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script>
+        //reset function
+        function reset() {
+            document.getElementsByClassName('form-control').value("");
+        }
+        // check form is valid
+        function IsValid() {
+            // get value of inputs
+            var fname = document.getElementById('fname').value;
+            var lname = document.getElementById('lname').value;
+            var email = document.getElementById('email').value;
+            var idcardtype = document.getElementById('idcardtype').value;
+            var idcardno = document.getElementById('idcardno').value;
+            var arrdate = document.getElementById('arrdate').value;
+            var depdate = document.getElementById('depdate').value;
+            var country = document.getElementById('country').value;
+            var ttlperson = document.getElementById('ttlperson').value;
+            var remarks = document.getElementById('remarks').value;
+            var radio1 = document.getElementById('radio1').checked;
+            var radio2 = document.getElementById('radio2').checked;
+            //check for each input
+            if (IsEmpty(fname, "fname")) {
+                alert("First Name is required !!");
+                return false;
+            }
+            if (IsEmpty(lname, "lname")) {
+                alert("Last Name is required !!");
+                return false;
+            }
+            if (IsEmpty(email, "email")) {
+                alert("Email Address is required !!");
+                return false;
+            }
+            else {
+                var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if (!email.match(mailformat)) {
+                    document.getElementById('email').style.borderColor = '#dc3545';
+                    alert("Please Enter Valid Email Address !!");
+                    return false;
+                }
+            }
+            if (IsEmpty(idcardtype, "idcardtype")) {
+                alert("Govt. Id Card is required !!");
+                return false;
+            }
+            if (IsEmpty(idcardno, "idcardno")) {
+                alert("Govt. Id Card Number is required !!");
+                return false;
+            }
+            if (IsEmpty(arrdate, "arrdate")) {
+                alert("Arrival Date is required !!");
+                return false;
+            }
+            if (IsEmpty(depdate, "depdate")) {
+                alert("Departure Date is required !!");
+                return false;
+            }
+            if (IsEmpty(country, "country")) {
+                alert("Country is required !!");
+                return false;
+            }
+            if (IsEmpty(ttlperson, "ttlperson")) {
+                alert("Number of Person is required !!");
+                return false;
+            }
+            if (IsEmpty(remarks, "remarks")) {
+                alert("Any Special Request is required !!");
+                return false;
+            }
+            if (IsEmpty(radio1, "radio1") && IsEmpty(radio2, "radio2")) {
+                alert("Payment Method is required !!");
+                return false;
+            }
+            return true;
+        }
+        function IsEmpty(input, name) {
+            if (input == "" || input == null || !input.trim()) {
+                document.getElementById(name).style.borderColor = '#dc3545';
+                return true;
+            }
+            return false;
+        }
+        function ValueChange(el) {
+            if (el.value == "" || el.value == null || !el.value.trim()) {
+                document.getElementById(el.id).style.borderColor = '#dc3545';
+            }
+            else {
+                document.getElementById(el.id).style.borderColor = '#ced4da';
+            }
+        }
+    </script>
+}

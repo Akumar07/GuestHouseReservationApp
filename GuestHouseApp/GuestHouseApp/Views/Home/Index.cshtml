@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Home - Guest House Reservation App";
+}
+<style>
+    img {
+        height: 400px;
+        max-height: 400px;
+    }
+</style>
+<div class="jumbotron">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Images/room1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Images/ignou1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Images/ignou2.jpeg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<br />
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">About Us</h2>
+        </div>
+        <div class="card-body">
+            <p>
+                The Indira Gandhi National Open University (IGNOU), established by an Act of Parliament in 1985, has continuously striven to build an inclusive knowledge society through inclusive education. It has tried to increase the Gross Enrollment Ratio (GER) by offering high-quality teaching through the Open and Distance Learning (ODL) mode.
+            </p>
+            <p><a class="btn btn-default" href="http://www.ignou.ac.in/ignou/aboutignou/profile/2">More Info &raquo;</a></p>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Twitter Timeline</h2>
+            </div>
+            <div class="card-body">
+                <a class="twitter-timeline" data-lang="en" data-height="500" data-theme="dark" href="https://twitter.com/OfficialIGNOU?ref_src=twsrc%5Etfw">Tweets by OfficialIGNOU</a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Facebook Timeline</h2>
+            </div>
+            <div class="card-body">
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FOfficialPageIGNOU&tabs=timeline&width=500&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+        </div>
+    </div>
+</div>

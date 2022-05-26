@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping schema="dbo" assembly="GuestHouseApp" namespace="GuestHouseApp.Models" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="MasterTable" table="MasterTable" schema="dbo">
+    <id name="Id" type="Int32">
+      <column name="Id" not-null="true" precision="10" scale="0" sql-type="INT" />
+      <generator class="identity" />
+    </id>
+    <property name="FirstName" type="String">
+      <column name="FirstName" not-null="true" length="50" sql-type="VARCHAR(50)" />
+    </property>
+    <property name="LastName" type="String">
+      <column name="LastName" not-null="true" length="50" sql-type="VARCHAR(50)" />
+    </property>
+    <property name="Email" type="String">
+      <column name="Email" not-null="true" length="50" sql-type="VARCHAR(50)" />
+    </property>
+    <many-to-one name="GovtIdCard" class="GovtIdCard">
+      <column name="GovtIdTypeId" not-null="true" precision="10" scale="0" sql-type="INT" />
+    </many-to-one>
+    <property name="GovtIdNo" type="String">
+      <column name="GovtIdNo" not-null="true" length="50" sql-type="VARCHAR(50)" />
+    </property>
+    <property name="DateOfArr" type="DateTime">
+      <column name="DateOfArr" not-null="true" sql-type="DATE" />
+    </property>
+    <property name="DateOfDep" type="DateTime">
+      <column name="DateOfDep" not-null="true" sql-type="DATE" />
+    </property>
+    <many-to-one name="Country" class="Country">
+      <column name="CountryId" not-null="true" precision="10" scale="0" sql-type="INT" />
+    </many-to-one>
+    <property name="NumberOfPerson" type="Int32">
+      <column name="NumberOfPerson" not-null="true" precision="10" scale="0" sql-type="INT" />
+    </property>
+    <property name="Remarks" type="String">
+      <column name="Remarks" not-null="true" sql-type="VARCHAR(MAX)" />
+    </property>
+    <many-to-one name="PaymentMethod" class="PaymentMethod">
+      <column name="PaymentMethodId" not-null="true" precision="10" scale="0" sql-type="INT" />
+    </many-to-one>
+    <property name="Active" type="Int32">
+      <column name="Active" not-null="true" precision="10" scale="0" sql-type="INT" />
+    </property>
+    <property name="UpdatedBy" type="String">
+      <column name="UpdatedBy" not-null="true" length="50" sql-type="VARCHAR(50)" />
+    </property>
+    <property name="UpdatedOn" type="DateTime">
+      <column name="UpdatedOn" not-null="true" sql-type="DATE" />
+    </property>
+  </class>
+</hibernate-mapping>
